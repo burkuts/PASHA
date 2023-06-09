@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# PASHA V1-BETA
 import os
 import socket
 import whois
@@ -98,6 +100,8 @@ try:
                 if response.status_code == 200:
                    rdap_data = response.json()
                    print(Fore.GREEN + "RDAP Bilgileri:")
+                   # İstediğiniz bilgileri rdap_data'dan çekerek kullanabilirsiniz
+                   # Örnek: registrant = rdap_data['entities'][0]['contact']['name']
                 else:
                    print(Fore.RED + "RDAP bilgileri bulunamadı.")
 
