@@ -120,7 +120,12 @@ try:
 
             def get_domain_info(domain):
                 try:
-                    get_rdap_info(domain)
+                    response = =requests.get(f"https://rdap.registry.net.za/domain/{domain}")
+                    if response.status_code == 200:
+                        rdap_data = response.json()
+                        print(Fore.GRENN + "RDAP Bilgileri:")
+                     else:
+                        get_whois_info(domain)
                 except:
                     get_whois_info(domain)
 
