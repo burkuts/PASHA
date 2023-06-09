@@ -56,10 +56,6 @@ pip3 install -r requirements.txt
 python3 pasha.py 
 ```
 
-## Ekran Görüntüsü
-![pasha](http://uupload.ir/files/otmb_webkiller.jpg)
-
-
 ### Sayeniz'de
     Ahmet Beyhan - Agota Software Takım Lideri
     Yasin Yaşar - Agota Software Takım Programcısı - Pentester
