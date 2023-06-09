@@ -56,14 +56,17 @@ try:
                 response = urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'Mozilla'}))
                 soup = BeautifulSoup(response, 'html.parser', from_encoding=response.headers.get_content_charset())
                 return soup
-            
+    
             try:
                 robots = get_page(f"https://{hedef}/robots.txt/")
-                print(Fore.GREEN + robots)
-            
+                robots_txt = str(robots)
+                print(Fore.GREEN + "robots.txt bulundu.")
+                print("robots.txt içeriği:")
+                print(robots_txt)
+    
             except urllib.error.HTTPError as e:
                 print(Fore.RED + "robots.txt bulunamadı;", e)
-            
+
             input(Style.RESET_ALL + "Devam etmek için bir tuşa basın...")
         
         elif tur == 4:
