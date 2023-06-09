@@ -30,13 +30,13 @@ Pasha, web ve sunucular için gelişmiş zafiyet arama aracıdır. / Pasha is a 
  [卐] Aşağıdaki seçeneklerden birini seçin 
 
  [1] IP Derin Tarama [YAKINDA]
- [1] WEB Derin Tarama [YAKINDA]
- [1] Robots.txt verisi
- [1] Hedef IP üzerinde açık portlar
- [1] WHOIS
- [1] DNS Kayıtları
- [1] Web Headers Bilgisi
- [1] CMS Algılama
+ [2] WEB Derin Tarama [YAKINDA]
+ [3] Robots.txt verisi
+ [4] Hedef IP üzerinde açık portlar
+ [5] WHOIS
+ [6] DNS Kayıtları
+ [7] Web Headers Bilgisi
+ [8] CMS Algılama
 
  ┌─[PASHA~@HOME]
  └──╼ 卐 
