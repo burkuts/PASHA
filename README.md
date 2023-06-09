@@ -56,7 +56,7 @@ pip3 install -r requirements.txt
 python3 pasha.py 
 ```
 
-### Sayeniz'de
+### Sayenizde
     Ahmet Beyhan - Agota Software Takım Lideri
     Yasin Yaşar - Agota Software Takım Programcısı - Pentester
     Mehmet Altekin - Agota Software Takım Çevirmeni
