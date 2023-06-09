@@ -2,7 +2,7 @@
 [![Python 3.5](https://img.shields.io/badge/Python-3.5-yellow.svg)](http://www.python.org/download/) 
 
 
-# WebKiller V2
+# PASHA V1
 
 Pasha, web ve sunucular için gelişmiş zafiyet arama aracıdır. / Pasha is a advenced vulnerability scanner for websites and servers.
 
