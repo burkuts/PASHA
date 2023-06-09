@@ -50,7 +50,7 @@ Pasha, web ve sunucular için gelişmiş zafiyet arama aracıdır. / Pasha is a 
 
 ## Yükleme Ve Kurulum
 ```bash
-git clone https://github.com/burkuts/pasha.git
+git clone https://github.com/burkuts/PASHA.git
 cd PASHA
 pip3 install -r requirements.txt
 python3 pasha.py 
