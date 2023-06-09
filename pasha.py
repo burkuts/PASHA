@@ -98,35 +98,35 @@ try:
         elif tur == 5:
    
             def get_rdap_info(domain):
-                rdap_url = f"https://registry.google/rdap/domain/{domain}"
+                rdap_url = f"https://rdap.registry.net.za/domain/{domain}"
                 response = requests.get(rdap_url)
-                if response.status_code == 200:
-                   rdap_data = response.json()
-                   print(Fore.GREEN + "RDAP Bilgileri:")
-                   # İstediğiniz bilgileri rdap_data'dan çekerek kullanabilirsiniz
-                   # Örnek: registrant = rdap_data['entities'][0]['contact']['name']
-                else:
-                   print(Fore.RED + "RDAP bilgileri bulunamadı.")
+            if response.status_code == 200:
+               rdap_data = response.json()
+               print(Fore.GREEN + "RDAP Bilgileri:")
+            else:
+               print(Fore.RED + "RDAP bilgileri bulunamadı.")
 
             def get_whois_info(domain):
-             try:
-                whois_info = whois.whois(domain)  # WHOIS bilgilerini alın
-                print(Fore.GREEN + "Domain Adı:", whois_info.domain_name)
-                print("Oluşturulma Tarihi:", whois_info.creation_date)
-                print("Son Güncelleme Tarihi:", whois_info.updated_date)
-                print("Son Geçerlilik Tarihi:", whois_info.expiration_date)
-                print("Kayıt Sahibi:", whois_info.registrar)
-                print("Name Server'lar:", whois_info.name_servers)
-             except whois.parser.PywhoisError:
-                print(Fore.RED + "WHOIS bilgileri bulunamadı.")
+                try:
+                    whois_info = whois.whois(domain)  # WHOIS bilgilerini alın
+                    print(Fore.GREEN + "Domain Adı:", whois_info.domain_name)
+                    print("Oluşturulma Tarihi:", whois_info.creation_date)
+                    print("Son Güncelleme Tarihi:", whois_info.updated_date)
+                    print("Son Geçerlilik Tarihi:", whois_info.expiration_date)
+                    print("Kayıt Sahibi:", whois_info.registrar)
+                    print("Name Server'lar:", whois_info.name_servers)
+                except whois.parser.PywhoisError:
+                    print(Fore.RED + "WHOIS bilgileri bulunamadı.")
 
             def get_domain_info(domain):
-                get_rdap_info(domain)
-                get_whois_info(domain)
+                try:
+                    get_rdap_info(domain)
+                except:
+                    get_whois_info(domain)
 
             domain = input("Hedef alan adını giriniz: ")
             get_domain_info(domain)
-     
+
             input(Style.RESET_ALL + "Devam etmek için bir tuşa basın...")
         
         elif tur == 6:
