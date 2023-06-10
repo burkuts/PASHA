@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# PASHA V1-01
+# PASHA V1-02
 import os
 import socket
 import whois
@@ -74,7 +74,7 @@ try:
             hedef = input(Fore.RED + "Hedef web sitesini HTTP/S olmadan yazınız: ")
             print(Fore.GREEN + hedef)
             
-            dosya_adı = input(Fore.ORANGE + "Verinin kaydedileceği dosyanın adını yazınız (dosya uzantısı belirtmeyiniz): ")
+            dosya_adı = input(Fore.LIGHTYELLOW_EX + "Verinin kaydedileceği dosyanın adını yazınız (dosya uzantısı belirtmeyiniz): ")
             clear_screen()
             with open("banner.txt", "r") as file:
                 banner = file.read()
