@@ -1,15 +1,27 @@
 #!/usr/bin/env python3
-# PASHA V1-02
+# PASHA V1-02.web
 import os
 import socket
 import whois
 import getpass
 import requests
+import json
+import subprocess
 import urllib.request
 import xml.etree.ElementTree as ET
 from colorama import Fore, Style
 from bs4 import BeautifulSoup
-import subprocess
+
+def find_subdomains(hedef):
+    url = f"https://crt.sh/?q=%.{hedef}&output=json"
+    response = requests.get(url)
+    data = response.json()
+    subdomains = set()
+    for item in data:
+        name_value = item['name_value']
+        if '*' not in name_value:
+            subdomains.add(name_value)
+    return subdomains
 
 username = getpass.getuser()
 
@@ -21,7 +33,7 @@ def print_menu():
         banner = file.read()
     print(banner)
     print("[1] IP Derin Tarama [YAKINDA]")
-    print("[2] Web Derin Tarama [YAKINDA]")
+    print("[2] Web Derin Tarama")
     print("[3] Robots.txt verisi")
     print("[4] IP üzerinden açık portlar")
     print("[5] WHOIS")
@@ -46,9 +58,90 @@ try:
 
         if tur == 1:
             print(Fore.GREEN + "YAKINDA", username)
-
+        
         elif tur == 2:
-            print(Fore.GREEN + "YAKINDA", username)
+            
+            clear_screen()
+            hedef = input(Fore.BLUE + "Hedef web sitesini HTTP/S olmadan yazınız: ")
+            wp = requests.head(f"https://{hedef}/wp-content/")
+            if wp.status_code == 200:
+               print(Fore.GREEN + "\nWordPress CMS!")
+            else:
+               print(Fore.RED + "\nWordPress CMS değil!")
+           
+            def get_page(url):
+                response = urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'Mozilla'}))
+                soup = BeautifulSoup(response, 'html.parser', from_encoding=response.headers.get_content_charset())
+                return soup
+    
+            try:
+                robots = get_page(f"https://{hedef}/robots.txt/")
+                robots_txt = str(robots)
+                print(Fore.GREEN + "\nrobots.txt bulundu.")
+                print("robots.txt içeriği:")
+                print(robots_txt)
+    
+            except urllib.error.HTTPError as e:
+                print(Fore.RED + "\nrobots.txt bulunamadı;", e)
+
+            # Web headers bilgisi
+            try:
+                response = requests.head(f"https://{hedef}/")
+                if response.status_code == 200:
+                    print(Fore.CYAN + "\nBaşarılı!")
+                    headers = response.headers
+                    print(Fore.RED + "Web Headers Bilgisi:")
+                    for header, value in headers.items():
+                        print(Fore.LIGHTRED_EX + f"{header}: {value}")
+                else:
+                    print(Fore.RED + "Web Headers Başarısız!")
+            except requests.exceptions.RequestException as e:
+                print(Fore.RED + "Hata oluştu:", str(e))
+
+            def get_whois_info(hedef):
+                try:
+                   whois_info = whois.whois(hedef)  # WHOIS bilgilerini alın
+                   print(Fore.GREEN + "\nWHOIS Bilgileri:")
+                   print("Domain Adı:", whois_info.domain_name)
+                   print("Oluşturulma Tarihi:", whois_info.creation_date)
+                   print("Son Güncelleme Tarihi:", whois_info.updated_date)
+                   print("Son Geçerlilik Tarihi:", whois_info.expiration_date)
+                   print("Kayıt Sahibi:", whois_info.registrar)
+                   print("Name Server'lar:", whois_info.name_servers)
+                except Exception as e:
+                   print(Fore.RED + "\nWHOIS bilgileri alınırken hata oluştu:", str(e))
+            get_whois_info(hedef)
+            
+            
+            subdomains = find_subdomains(hedef)
+
+            print(Fore.GREEN + "\nBulunan subdomainler:")
+            for subdomain in subdomains:
+                print(subdomain)  
+            
+            print("\n")
+            print(Fore.GREEN + "DNS Kayıtları:")
+            # A kaydı sorgusu
+            a_records = socket.gethostbyname_ex(hedef)[2]
+            for record in a_records:
+                print(Fore.GREEN + "A Record:", record)
+
+            # MX kaydı sorgusu
+            mx_records = socket.getaddrinfo(hedef, 25, socket.AF_INET, socket.SOCK_STREAM)
+            for record in mx_records:
+                print(Fore.GREEN + "MX Record:", record[4][0])
+
+            # NS kaydı sorgusu
+            ns_records = socket.gethostbyname_ex(hedef)[2]
+            for record in ns_records:
+                print(Fore.GREEN + "NS Record:", record)
+
+            # CNAME kaydı sorgusu
+            cname_record = socket.gethostbyname_ex(hedef)[0]
+            if cname_record != hedef:
+                print(Fore.GREEN + "CNAME Record:", cname_record)
+
+            input(Style.RESET_ALL + "Devam etmek için bir tuşa basın...")
         
         elif tur == 3:
             hedef = input(Fore.RED + "Hedef web sitesini HTTP/S olmadan yazınız: ")
