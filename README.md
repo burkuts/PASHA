@@ -2,7 +2,7 @@
 [![Python 3.5](https://img.shields.io/badge/Python-3.5-yellow.svg)](http://www.python.org/download/) 
 
 
-# PASHA V1
+# PASHA V1-02.web
 
 Pasha, web ve sunucular için gelişmiş zafiyet arama aracıdır. / Pasha is a advenced vulnerability scanner for websites and servers.
 
