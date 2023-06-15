@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# PASHA V1-02.web
+# PASHA V2
 import os
 import socket
 import whois
